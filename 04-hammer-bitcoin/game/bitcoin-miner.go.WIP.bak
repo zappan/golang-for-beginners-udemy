@@ -1,0 +1,79 @@
+package game
+
+import (
+  "fmt"
+  "log"
+  "math/rand"
+  "time"
+  "github.com/eiannone/keyboard"
+)
+
+
+func printIntro() {
+  fmt.Println("INTRO HERE")
+}
+
+func printSummary() {
+  fmt.Println("SUMMARY HERE")
+}
+
+func updateComputerPrice() {
+  //
+}
+
+func buyComputers() {}
+func sellComputers() {}
+func maintainComputers() {}
+func payEmployees() {}
+
+func Play() {
+  rand.Seed(time.Now().UnixNano())
+
+  printIntro()  // greeting
+
+  stillInOffice := true
+
+  // play for 10yrs or until kicled out
+  for stillInOffice && year <= 10 {
+    // TODO
+  }
+}
+
+
+func GetYesOrNo(question string) bool {
+  err := keyboard.Open()
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  defer func() {
+    keyboard.Close()
+  }()
+
+  for {
+    fmt.Print(question)
+
+    ans, _, err := keyboard.GetSingleKey()
+    if err != nil {
+      log.Fatal(err)
+    }
+
+    // answer := fmt.Sprintf("%q", ans)   // this adds single-quotes around the string for some reason
+    answer := string(ans)                 // this doesn't... result is a plain string
+    fmt.Println("", answer)               // adds space between arguments, thus adds space before the answer outpu
+
+    // with 'rune' (aka unicode char) -- single-quotes
+    if ans == 'n' || ans == 'N' {
+      fmt.Println("Exiting...")
+      return false
+    }
+
+    // with string -- double-quotes
+    if answer == "n" || answer == "N" {
+      fmt.Println("Exiting...")
+      return false
+    }
+
+    return true
+  }
+}
